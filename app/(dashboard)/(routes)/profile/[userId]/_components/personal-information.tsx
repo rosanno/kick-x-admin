@@ -41,7 +41,7 @@ const formSchema = z.object({
   email: z.string().email().min(1),
   phoneNumber: z.string().min(10),
   address: z.string(),
-  role: z.enum(["User", "Admin"]),
+  role: z.enum(["USER", "ADMIN"]),
 });
 
 interface PersonalInformationProps {
@@ -242,10 +242,10 @@ export const PersonalInformation = ({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="User">
+                            <SelectItem value="USER">
                               User
                             </SelectItem>
-                            <SelectItem value="Admin">
+                            <SelectItem value="ADMIN">
                               Admin
                             </SelectItem>
                           </SelectGroup>
