@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Profile } from "./_components/profile";
 import { PersonalInformation } from "./_components/personal-information";
+import { PasswordInformation } from "./_components/password-information";
 
 const ProfilePage = async ({
   params,
@@ -25,6 +26,7 @@ const ProfilePage = async ({
         address={profile?.address}
         role={profile?.role}
       />
+      <PasswordInformation />
     </>
   );
 };
