@@ -26,6 +26,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(25),
@@ -33,7 +41,7 @@ const formSchema = z.object({
   email: z.string().email().min(1),
   phoneNumber: z.string().min(10),
   address: z.string(),
-  role: z.enum(["USER", "ADMIN"]),
+  role: z.enum(["User", "Admin"]),
 });
 
 interface PersonalInformationProps {
@@ -215,7 +223,38 @@ export const PersonalInformation = ({
                   )}
                 />
               </div>
-              <div className="col-span-3"></div>
+              <div className="col-span-3">
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[13px]">
+                        Select Role
+                      </FormLabel>
+                      <Select
+                        disabled={!isEdit}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="User">
+                              User
+                            </SelectItem>
+                            <SelectItem value="Admin">
+                              Admin
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
             <div className="space-x-2.5">
               {isEdit && (
