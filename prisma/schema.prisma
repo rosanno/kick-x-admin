@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  firstName   String
+  lastName    String
+  photo_url   String?
+  birthday    String
+  address     String
+  email       String  @unique
+  phoneNumber String
+  password    String
+  role        Role    @default(USER)
+}
+
+enum Gender {
+  Both
+  Male
+  Female
+}
+
+model Category {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  category_name String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  products      Product[]
+}
+
+model Brand {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  brand_name String
+  products   Product[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Size {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  size      Float
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String  @db.ObjectId
+}
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  brandId     String   @db.ObjectId
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  categoryId  String   @db.ObjectId
+  category    Category @relation(fields: [categoryId], references: [id])
+  color       Color    @relation(fields: [colorId], references: [id])
+  gender      Gender   @default(Both)
+  sizes       Size[]
+  images      Image[]
+  price       Float
+  discount    Float?
+  stocks      Int
+  isFeatured  Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  colorId     String   @db.ObjectId
+}
+
+model Color {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  color_value String
+  color_name  String
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Image {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  image_path String
+  product    Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String?  @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
