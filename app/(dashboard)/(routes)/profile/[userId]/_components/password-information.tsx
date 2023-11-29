@@ -1,6 +1,9 @@
 "use client";
 
 import * as z from "zod";
+import toast from "react-hot-toast";
+
+import { User } from "@prisma/client";
 
 import {
   Card,
@@ -17,9 +20,17 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+interface PasswordInformationProps {
+  user: User | undefined | null;
+}
 
 const formSchema = z.object({
   current_password: z.string().min(1),
@@ -41,7 +52,13 @@ const formSchema = z.object({
     .regex(/[\W]+/),
 });
 
-export const PasswordInformation = () => {
+export const PasswordInformation = ({
+  user,
+}: PasswordInformationProps) => {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,7 +71,31 @@ export const PasswordInformation = () => {
   const onSubmit = async (
     formValues: z.infer<typeof formSchema>
   ) => {
-    console.log(formValues);
+    try {
+      setLoading(true);
+      if (
+        formValues.password !== formValues.confirm_password
+      ) {
+        form.setError("confirm_password", {
+          message: "Password did not match",
+        });
+      } else {
+        await axios.patch(`/api/user/${user?.id}`, {
+          ...user,
+          current_password: formValues.current_password,
+          password: formValues.password,
+        });
+        router.refresh();
+        toast.success("Password updated.");
+      }
+    } catch (error: any) {
+      form.setError("current_password", {
+        message: error.response.data.message,
+      });
+    } finally {
+      setLoading(false);
+      form.reset();
+    }
   };
 
   return (
@@ -88,8 +129,10 @@ export const PasswordInformation = () => {
                         <Input
                           {...field}
                           placeholder="Enter current password"
+                          type="password"
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -104,8 +147,9 @@ export const PasswordInformation = () => {
                         New Password
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} type="password" />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -120,8 +164,9 @@ export const PasswordInformation = () => {
                         Confirm New Password
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} type="password" />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -130,6 +175,7 @@ export const PasswordInformation = () => {
             <div className="space-x-2.5">
               <Button
                 type="submit"
+                disabled={loading}
                 className="w-28 bg-[#313131] hover:bg-[#404040] transition duration-300"
               >
                 Save

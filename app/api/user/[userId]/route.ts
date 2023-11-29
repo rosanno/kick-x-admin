@@ -1,6 +1,7 @@
+import { z } from "zod";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import bcrypt, { hash } from "bcrypt";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -25,6 +26,7 @@ export async function PATCH(
       image_url: z.string().optional(),
       phoneNumber: z.string(),
       address: z.string(),
+      current_password: z.string().min(1).optional(),
       password: z
         .string()
         .min(8)
@@ -42,11 +44,14 @@ export async function PATCH(
     if (!response.success) {
       const { errors } = response.error;
 
-      return NextResponse.json({
-        error: { message: "Invalid request", errors },
-      }, {
-        status: 400
-      });
+      return NextResponse.json(
+        {
+          error: { message: "Invalid request", errors },
+        },
+        {
+          status: 400,
+        }
+      );
     }
 
     const {
@@ -56,9 +61,38 @@ export async function PATCH(
       image_url,
       phoneNumber,
       address,
+      current_password,
       password,
       role,
     } = response.data;
+
+    let hash_password;
+
+    if (password) {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: params.userId,
+        },
+      });
+
+      const comparePassword = await bcrypt.compare(
+        current_password!!,
+        user?.password!!
+      );
+
+      if (!comparePassword) {
+        return NextResponse.json(
+          {
+            message: "Invalid password",
+          },
+          {
+            status: 400,
+          }
+        );
+      }
+
+      hash_password = await hash(password, 12);
+    }
 
     const user = await prisma.user.update({
       where: {
@@ -71,7 +105,7 @@ export async function PATCH(
         photo_url: image_url,
         phoneNumber,
         address,
-        password,
+        password: hash_password,
         role,
       },
     });
