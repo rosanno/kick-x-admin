@@ -19,6 +19,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   current_password: z.string().min(1),
@@ -69,7 +70,10 @@ export const PasswordInformation = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-5"
+          >
             <div className="grid grid-cols-8 gap-x-6 gap-y-3">
               <div className="col-span-6">
                 <FormField
@@ -122,6 +126,14 @@ export const PasswordInformation = () => {
                   )}
                 />
               </div>
+            </div>
+            <div className="space-x-2.5">
+              <Button
+                type="submit"
+                className="w-28 bg-[#313131] hover:bg-[#404040] transition duration-300"
+              >
+                Save
+              </Button>
             </div>
           </form>
         </Form>
