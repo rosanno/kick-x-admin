@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import axios from "axios";
+import { useState } from "react";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
@@ -28,6 +29,38 @@ interface ProfileProps {
 export const Profile = ({ userId, user }: ProfileProps) => {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
+  const removeProfilePhoto = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.patch(
+        `/api/user/${user?.id}`,
+        {
+          ...user,
+          image_url: null,
+          password: undefined,
+        }
+      );
+      if (response) {
+        const image_url = user?.photo_url?.substring(
+          user?.photo_url.lastIndexOf("/") + 1
+        );
+        await axios.delete("/api/uploadthing", {
+          data: {
+            url: image_url,
+          },
+        });
+      }
+      router.refresh();
+      toast.success("Photo deleted");
+    } catch (error) {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Card className="border-0 rounded-sm shadow-sm">
       <CardHeader>
@@ -46,9 +79,9 @@ export const Profile = ({ userId, user }: ProfileProps) => {
               src={`${
                 user?.photo_url
                   ? user?.photo_url
-                  : "https://github.com/shadcn.png"
+                  : "/blank-profile.png"
               }`}
-              alt="@shadcn"
+              alt="Profile photo"
               height={75}
               width={75}
               className="object-cover w-full h-full"
@@ -82,7 +115,9 @@ export const Profile = ({ userId, user }: ProfileProps) => {
               <Button
                 variant={"ghost"}
                 size={"sm"}
+                disabled={loading}
                 className="border border-gray-200"
+                onClick={removeProfilePhoto}
               >
                 <Trash className="h-4 w-4 mr-1" />
                 Remove
