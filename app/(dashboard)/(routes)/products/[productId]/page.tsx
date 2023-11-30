@@ -19,7 +19,16 @@ const ProductPage = async ({
     },
     include: {
       images: true,
-      sizes: true,
+      sizes: {
+        select: {
+          id: true,
+          size: true,
+          productId: true,
+        },
+        orderBy: {
+          size: "asc",
+        },
+      },
       color: true,
     },
   });
