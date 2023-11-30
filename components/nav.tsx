@@ -49,7 +49,7 @@ export const Nav = () => {
               role="button"
               className="flex gap-3 items-center"
             >
-              <UserAvatar />
+              <UserAvatar image={session?.user?.image} />
               <div>
                 <h4 className="text-[13px] font-semibold leading-[1]">
                   {session?.user?.name}

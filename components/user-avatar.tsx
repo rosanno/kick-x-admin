@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Avatar,
@@ -6,12 +6,17 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 
-export const UserAvatar = () => {
+export const UserAvatar = ({
+  image,
+}: {
+  image: string;
+}) => {
   return (
     <Avatar className="h-8 w-8">
       <AvatarImage
-        src="https://github.com/shadcn.png"
-        alt="@shadcn"
+        src={image}
+        alt="image"
+        className="object-cover"
       />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
