@@ -439,6 +439,7 @@ export const ProductForm = ({
                           <FormItem className="flex flex-row items-start space-x-2 space-y-0">
                             <FormControl>
                               <Checkbox
+                                checked={field.value}
                                 onCheckedChange={
                                   field.onChange
                                 }
