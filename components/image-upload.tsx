@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Trash, X } from "lucide-react";
+import { Trash } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 import { UploadDropzone } from "@/lib/uploadthing";
-import { useState } from "react";
 import { Button } from "./ui/button";
 
 interface ImageUploadProps {
