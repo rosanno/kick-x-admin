@@ -165,6 +165,7 @@ export const ProductForm = ({
         await axios.post("/api/product", formValues);
         form.reset();
       }
+      router.push("/products");
       router.refresh();
       toast.success(toastMsg);
     } catch (error) {
