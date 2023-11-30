@@ -244,12 +244,17 @@ export const ProductForm = ({
                             value={field.value.map(
                               (image) => image.image_path
                             )}
-                            onChange={(image_path) =>
-                              field.onChange([
+                            onChange={(imagePaths) => {
+                              const updatedImages = [
                                 ...field.value,
-                                { image_path },
-                              ])
-                            }
+                                ...imagePaths.map(
+                                  (image_path) => ({
+                                    image_path,
+                                  })
+                                ),
+                              ];
+                              field.onChange(updatedImages);
+                            }}
                             onRemove={(url) =>
                               onRemove(url, field)
                             }

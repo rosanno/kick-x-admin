@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 
 interface ImageUploadProps {
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
   onRemove: (value: string) => void;
   value: string[];
 }
@@ -27,7 +27,10 @@ export const ImageUpload = ({
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
             if (res) {
-              res.map((item) => onChange(item.url));
+              const imagePaths = res.map(
+                (item) => item.url
+              );
+              onChange(imagePaths);
             }
           }}
           onUploadError={(error: Error) => {
