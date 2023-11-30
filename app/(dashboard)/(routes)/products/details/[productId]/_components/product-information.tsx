@@ -114,16 +114,18 @@ export const ProductInformation = ({
           <div className="space-y-2">
             <h3 className="text-sm font-medium">Sizes:</h3>
             <div className="flex items-center gap-2">
-              {product?.sizes?.map((size) => (
-                <div
-                  key={size.id}
-                  className="bg-gray-100/70 w-10 h-10 flex items-center justify-center rounded-xl"
-                >
-                  <span className="text-[13px] font-semibold">
-                    {size.size}
-                  </span>
-                </div>
-              ))}
+              {product?.sizes
+                ?.sort((a, b) => a.size - b.size) // Sort sizes based on the 'size' property
+                .map((size) => (
+                  <div
+                    key={size.id}
+                    className="bg-gray-100/70 w-10 h-10 flex items-center justify-center rounded-xl"
+                  >
+                    <span className="text-[13px] font-semibold">
+                      {size.size}
+                    </span>
+                  </div>
+                ))}
             </div>
           </div>
           <div className="space-y-2">
