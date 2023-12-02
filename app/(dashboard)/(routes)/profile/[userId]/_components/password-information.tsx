@@ -1,9 +1,9 @@
 "use client";
 
 import * as z from "zod";
-import toast from "react-hot-toast";
 
 import { User } from "@prisma/client";
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Card,
@@ -55,6 +55,7 @@ const formSchema = z.object({
 export const PasswordInformation = ({
   user,
 }: PasswordInformationProps) => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -86,7 +87,9 @@ export const PasswordInformation = ({
           password: formValues.password,
         });
         router.refresh();
-        toast.success("Password updated.");
+        toast({
+          description: "Password updated.",
+        });
       }
     } catch (error: any) {
       form.setError("current_password", {

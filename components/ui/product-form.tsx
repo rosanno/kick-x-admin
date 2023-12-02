@@ -7,7 +7,8 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Plus } from "lucide-react";
-import toast from "react-hot-toast";
+
+import { useToast } from "./use-toast";
 
 import {
   Brand,
@@ -108,6 +109,7 @@ export const ProductForm = ({
   brands,
 }: ProductFormProps) => {
   const router = useRouter();
+  const { toast } = useToast();
   const { onRemove } = useRemoveImage();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -173,9 +175,16 @@ export const ProductForm = ({
       }
       router.push("/products");
       router.refresh();
-      toast.success(toastMsg);
+      toast({
+        description: `${toastMsg}`,
+      });
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setIsLoading(false);
     }

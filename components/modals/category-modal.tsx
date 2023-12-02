@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 import { useCategoryModal } from "@/hooks/use-category-modal";
 
@@ -22,6 +21,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   category_name: z
@@ -31,6 +31,7 @@ const formSchema = z.object({
 });
 
 export const CategoryModal = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const categoryModal = useCategoryModal();
 
@@ -65,7 +66,11 @@ export const CategoryModal = () => {
           );
         }
       } catch (error) {
-        toast.error("Something went wrong.");
+        toast({
+          title: "Something went wrong.",
+          description:
+            "There was a problem with your request.",
+        });
       } finally {
         setLoading(false);
       }
@@ -97,10 +102,16 @@ export const CategoryModal = () => {
         await axios.post("/api/categories", values);
       }
 
-      toast.success(`Category ${toastMsg}`);
+      toast({
+        description: `Category ${toastMsg}`,
+      });
       router.refresh();
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast({
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setLoading(false);
       form.reset();

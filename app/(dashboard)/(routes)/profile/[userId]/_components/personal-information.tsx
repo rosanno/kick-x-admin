@@ -5,7 +5,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil } from "lucide-react";
 import axios from "axios";
-import toast from "react-hot-toast";
+
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Card,
@@ -63,6 +64,7 @@ export const PersonalInformation = ({
   address,
   role,
 }: PersonalInformationProps) => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const [isEdit, setIsEdit] = useState(false);
@@ -86,10 +88,17 @@ export const PersonalInformation = ({
     try {
       setLoading(true);
       await axios.patch(`/api/user/${userId}`, formValues);
-      toast.success("Updated.");
       router.refresh();
+      toast({
+        description: "Information updated",
+      });
     } catch (error) {
-      toast.error("Something went wrong");
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setIsEdit(false);
       setLoading(false);

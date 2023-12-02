@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 import {
   Eye,
   MoreHorizontal,
@@ -20,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { useToast } from "@/components/ui/use-toast";
 import { ProductColumn } from "./column";
 
 interface CellActionProps {
@@ -27,6 +27,7 @@ interface CellActionProps {
 }
 
 export const CellAction = ({ data }: CellActionProps) => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -37,9 +38,16 @@ export const CellAction = ({ data }: CellActionProps) => {
       setLoading(true);
       await axios.delete(`/api/product/${data.id}`);
       router.refresh();
-      toast.success("Product deleted.");
+      toast({
+        description: "Product deleted.",
+      });
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setLoading(false);
       setIsOpen(false);

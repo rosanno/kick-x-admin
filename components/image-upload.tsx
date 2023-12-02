@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { Trash } from "lucide-react";
-import { toast } from "react-hot-toast";
+
+import { useToast } from "./ui/use-toast";
 
 import { UploadDropzone } from "@/lib/uploadthing";
 import { Button } from "./ui/button";
@@ -18,6 +19,8 @@ export const ImageUpload = ({
   onRemove,
   value,
 }: ImageUploadProps) => {
+  const { toast } = useToast();
+
   return (
     <>
       <div>
@@ -33,7 +36,10 @@ export const ImageUpload = ({
             }
           }}
           onUploadError={(error: Error) => {
-            toast.error(`ERROR! ${error.message}`);
+            toast({
+              variant: "destructive",
+              description: `Error ${error}`,
+            });
           }}
         />
         <div className="flex flex-col space-y-2 mt-2">

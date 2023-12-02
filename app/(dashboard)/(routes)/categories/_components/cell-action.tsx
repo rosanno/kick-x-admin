@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 import {
   MoreHorizontal,
   Pencil,
@@ -19,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { useToast } from "@/components/ui/use-toast";
 import { useCategoryModal } from "@/hooks/use-category-modal";
 import { CategoryColumn } from "./column";
 
@@ -27,6 +27,7 @@ interface CellActionProps {
 }
 
 export const CellAction = ({ data }: CellActionProps) => {
+  const { toast } = useToast();
   const router = useRouter();
   const categoryModal = useCategoryModal();
 
@@ -38,11 +39,18 @@ export const CellAction = ({ data }: CellActionProps) => {
       setLoading(true);
       await axios.delete(`/api/categories/${data.id}`);
       router.refresh();
-      toast.success("Category deleted.");
+      toast({
+        description: "Category deleted",
+      });
       setIsOpen(false);
       setLoading(false);
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setLoading(false);
     }
@@ -66,9 +74,7 @@ export const CellAction = ({ data }: CellActionProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() =>
-              categoryModal.onEdit(data.id)
-            }
+            onClick={() => categoryModal.onEdit(data.id)}
           >
             <Pencil className="mr-2 h-4 w-4" />
             <span className="text-[13px]">Update</span>

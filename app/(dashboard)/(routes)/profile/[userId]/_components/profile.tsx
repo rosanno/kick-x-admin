@@ -19,7 +19,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ProfileProps {
   user: User | null | undefined;
@@ -27,6 +27,7 @@ interface ProfileProps {
 }
 
 export const Profile = ({ userId, user }: ProfileProps) => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -53,9 +54,16 @@ export const Profile = ({ userId, user }: ProfileProps) => {
         });
       }
       router.refresh();
-      toast.success("Photo deleted");
+      toast({
+        description: "Photo deleted.",
+      });
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
     } finally {
       setLoading(false);
     }
@@ -105,7 +113,9 @@ export const Profile = ({ userId, user }: ProfileProps) => {
                     image_url: res && res[0].url,
                     password: undefined,
                   });
-                  toast.success("Photo updated.");
+                  toast({
+                    description: "Photo updated.",
+                  });
                   router.refresh();
                 }}
                 onUploadError={(error: Error) => {
