@@ -23,6 +23,7 @@ const ProductPage = async ({
         select: {
           id: true,
           size: true,
+          stock: true,
           productId: true,
         },
         orderBy: {

@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
       images,
       price,
       discount,
-      stocks,
       isFeatured,
       color_name,
       color_value,
@@ -47,13 +46,18 @@ export async function POST(req: NextRequest) {
         gender,
         price,
         discount,
-        stocks,
         isFeatured,
         sizes: {
           createMany: {
             data: [
               ...sizes.map(
-                (size: { size: number }) => size
+                (size: {
+                  size: number;
+                  initialStock: number;
+                }) => ({
+                  size: size.size,
+                  stock: size.initialStock,
+                })
               ),
             ],
           },

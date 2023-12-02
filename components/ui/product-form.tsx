@@ -15,7 +15,7 @@ import {
   Color,
   Image,
   Product,
-  Size,
+  StockSize,
 } from "@prisma/client";
 
 import {
@@ -51,7 +51,7 @@ interface ProductFormProps {
   initialData?:
     | (Product & {
         images: Image[];
-        sizes: Size[];
+        sizes: StockSize[];
         color: Color;
       })
     | null;
@@ -82,7 +82,10 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Please select gender" }),
   sizes: z
-    .object({ size: z.coerce.number() })
+    .object({
+      size: z.coerce.number(),
+      stock: z.coerce.number(),
+    })
     .array()
     .min(1, { message: "Please provide valid size." }),
   images: z.object({ image_path: z.string() }).array(),
@@ -90,7 +93,6 @@ const formSchema = z.object({
     .number()
     .min(2, { message: "Price is required." }),
   discount: z.coerce.number().optional(),
-  stocks: z.coerce.number(),
   isFeatured: z.boolean().default(false).optional(),
   color_name: z.string().min(4, {
     message: "Please provide a valid color name.",
@@ -136,7 +138,12 @@ export const ProductForm = ({
         categoryId: "",
         description: "",
         gender: "",
-        sizes: [],
+        sizes: [
+          {
+            size: undefined,
+            stock: undefined,
+          },
+        ],
         images: [],
         price: 0,
         discount: 0,
@@ -350,28 +357,7 @@ export const ProductForm = ({
                         )}
                       />
                     </div>
-                    <div className="col-span-2">
-                      <FormField
-                        control={form.control}
-                        name="stocks"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-[13px] text-muted-foreground">
-                              Stocks
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                placeholder="0"
-                                type="number"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <div className="col-span-2">
+                    <div className="col-span-4">
                       <FormField
                         control={form.control}
                         name="sizes"
@@ -384,38 +370,75 @@ export const ProductForm = ({
                               <div className="flex items-center flex-wrap gap-2">
                                 {field.value.map(
                                   (item, index) => (
-                                    <Input
+                                    <div
                                       key={index}
-                                      type="number"
-                                      value={item.size}
-                                      onChange={(event) =>
-                                        field.onChange(
-                                          field.value.map(
-                                            (el, i) => {
-                                              const parsedValue =
-                                                parseFloat(
-                                                  event
-                                                    .target
-                                                    .value
-                                                );
-                                              return i ===
-                                                index
-                                                ? {
-                                                    ...el,
-                                                    size: isNaN(
-                                                      parsedValue
-                                                    )
-                                                      ? ""
-                                                      : parsedValue,
-                                                  }
-                                                : el;
-                                            }
+                                      className="w-[706px] flex items-center gap-2"
+                                    >
+                                      <Input
+                                        type="number"
+                                        value={item.size}
+                                        onChange={(event) =>
+                                          field.onChange(
+                                            field.value.map(
+                                              (el, i) => {
+                                                const parsedValue =
+                                                  parseFloat(
+                                                    event
+                                                      .target
+                                                      .value
+                                                  );
+                                                return i ===
+                                                  index
+                                                  ? {
+                                                      ...el,
+                                                      size: isNaN(
+                                                        parsedValue
+                                                      )
+                                                        ? ""
+                                                        : parsedValue,
+                                                    }
+                                                  : el;
+                                              }
+                                            )
                                           )
-                                        )
-                                      }
-                                      step="any"
-                                      className="w-9 p-0 text-center"
-                                    />
+                                        }
+                                        step="any"
+                                        className="w-9 p-0 text-center"
+                                      />
+                                      <Input
+                                        type="number"
+                                        value={item.stock}
+                                        onChange={(event) =>
+                                          field.onChange(
+                                            field.value.map(
+                                              (el, i) => {
+                                                const parsedValue =
+                                                  parseFloat(
+                                                    event
+                                                      .target
+                                                      .value
+                                                  );
+                                                return i ===
+                                                  index
+                                                  ? {
+                                                      ...el,
+                                                      stock:
+                                                        isNaN(
+                                                          parsedValue
+                                                        )
+                                                          ? ""
+                                                          : parsedValue,
+                                                    }
+                                                  : el;
+                                              }
+                                            )
+                                          )
+                                        }
+                                        step="any"
+                                        placeholder="stock"
+                                        className="w-full"
+                                      />
+                                    </div>
                                   )
                                 )}
                                 <div
@@ -423,7 +446,10 @@ export const ProductForm = ({
                                   onClick={() =>
                                     field.onChange([
                                       ...field.value,
-                                      { size: undefined },
+                                      {
+                                        size: undefined,
+                                        stock: undefined,
+                                      },
                                     ])
                                   }
                                   className="border hover:bg-gray-100/70 transition duration-300 rounded-md p-3 w-fit"
@@ -437,7 +463,7 @@ export const ProductForm = ({
                         )}
                       />
                     </div>
-                    <div className="col-span-5 flex justify-end">
+                    <div className="col-span-5 mt-2.5">
                       <FormField
                         control={form.control}
                         name="isFeatured"
