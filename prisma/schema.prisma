@@ -50,32 +50,38 @@ model Brand {
   updatedAt  DateTime  @updatedAt
 }
 
-model StockSize {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+model Stock {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  stock Int
+}
+
+model Size {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   size      Float
-  stock     Int
+  quantity  Int
   product   Product @relation(fields: [productId], references: [id])
   productId String  @db.ObjectId
 }
 
 model Product {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  brandId     String      @db.ObjectId
-  brand       Brand       @relation(fields: [brandId], references: [id])
-  categoryId  String      @db.ObjectId
-  category    Category    @relation(fields: [categoryId], references: [id])
-  color       Color       @relation(fields: [colorId], references: [id])
-  gender      Gender      @default(Both)
-  sizes       StockSize[]
+  brandId     String   @db.ObjectId
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  categoryId  String   @db.ObjectId
+  category    Category @relation(fields: [categoryId], references: [id])
+  color       Color    @relation(fields: [colorId], references: [id])
+  gender      Gender   @default(Both)
+  sizes       Size[]
   images      Image[]
+  stocks      Int
   price       Float
   discount    Float?
-  isFeatured  Boolean?    @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  colorId     String      @db.ObjectId
+  isFeatured  Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  colorId     String   @db.ObjectId
 }
 
 model Color {

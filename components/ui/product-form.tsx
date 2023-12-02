@@ -15,7 +15,7 @@ import {
   Color,
   Image,
   Product,
-  StockSize,
+  Size,
 } from "@prisma/client";
 
 import {
@@ -51,7 +51,7 @@ interface ProductFormProps {
   initialData?:
     | (Product & {
         images: Image[];
-        sizes: StockSize[];
+        sizes: Size[];
         color: Color;
       })
     | null;
@@ -84,7 +84,7 @@ const formSchema = z.object({
   sizes: z
     .object({
       size: z.coerce.number(),
-      stock: z.coerce.number(),
+      quantity: z.coerce.number(),
     })
     .array()
     .min(1, { message: "Please provide valid size." }),
@@ -141,13 +141,12 @@ export const ProductForm = ({
         sizes: [
           {
             size: undefined,
-            stock: undefined,
+            quantity: undefined,
           },
         ],
         images: [],
         price: 0,
         discount: 0,
-        stocks: 0,
         isFeatured: false,
         color_name: "",
         color_value: "",
@@ -407,7 +406,9 @@ export const ProductForm = ({
                                       />
                                       <Input
                                         type="number"
-                                        value={item.stock}
+                                        value={
+                                          item.quantity
+                                        }
                                         onChange={(event) =>
                                           field.onChange(
                                             field.value.map(
@@ -422,7 +423,7 @@ export const ProductForm = ({
                                                   index
                                                   ? {
                                                       ...el,
-                                                      stock:
+                                                      quantity:
                                                         isNaN(
                                                           parsedValue
                                                         )
@@ -435,7 +436,7 @@ export const ProductForm = ({
                                           )
                                         }
                                         step="any"
-                                        placeholder="stock"
+                                        placeholder="quantity"
                                         className="w-full"
                                       />
                                     </div>
@@ -448,7 +449,7 @@ export const ProductForm = ({
                                       ...field.value,
                                       {
                                         size: undefined,
-                                        stock: undefined,
+                                        quantity: undefined,
                                       },
                                     ])
                                   }

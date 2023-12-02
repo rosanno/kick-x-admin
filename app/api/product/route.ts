@@ -29,6 +29,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const stocks = sizes.reduce(
+      (acc: any, current: any) => acc + current.quantity,
+      0
+    );
+
     const color = await prisma.color.create({
       data: {
         color_name,
@@ -47,16 +52,17 @@ export async function POST(req: NextRequest) {
         price,
         discount,
         isFeatured,
+        stocks,
         sizes: {
           createMany: {
             data: [
               ...sizes.map(
                 (size: {
                   size: number;
-                  initialStock: number;
+                  quantity: number;
                 }) => ({
                   size: size.size,
-                  stock: size.initialStock,
+                  quantity: size.quantity,
                 })
               ),
             ],
