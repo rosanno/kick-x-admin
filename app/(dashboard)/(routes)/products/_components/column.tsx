@@ -47,20 +47,14 @@ export const columns: ColumnDef<ProductColumn>[] = [
               height={60}
             />
           </div>
-          <div className="text-[13px]">
-            {row.getValue("name")}
+          <div className="flex flex-col space-y-0.5">
+            <span className="text-[13px]">
+              {row.getValue("name")}
+            </span>
+            <span className="text-[13px] text-gray-400">
+              Category: {row.original.category_name}
+            </span>
           </div>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "category_name",
-    header: "Category",
-    cell: ({ row }) => {
-      return (
-        <div className="text-[13px]">
-          {row.getValue("category_name")}
         </div>
       );
     },
@@ -72,17 +66,6 @@ export const columns: ColumnDef<ProductColumn>[] = [
       return (
         <div className="text-[13px]">
           {row.getValue("stocks")}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created_At",
-    cell: ({ row }) => {
-      return (
-        <div className="text-[13px]">
-          {row.getValue("createdAt")}
         </div>
       );
     },
@@ -105,6 +88,17 @@ export const columns: ColumnDef<ProductColumn>[] = [
       return (
         <div className="text-[13px]">
           {row.getValue("price")}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created_At",
+    cell: ({ row }) => {
+      return (
+        <div className="text-[13px]">
+          {row.getValue("createdAt")}
         </div>
       );
     },
