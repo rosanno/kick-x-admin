@@ -75,6 +75,11 @@ export async function PATCH(
     });
   }
 
+  const stocks = sizes.reduce(
+    (acc: any, current: any) => acc + current.quantity,
+    0
+  );
+
   await prisma.product.update({
     where: {
       id: params.productId,
@@ -85,6 +90,7 @@ export async function PATCH(
       categoryId,
       brandId,
       isFeatured,
+      stocks,
       gender,
       sizes: {
         deleteMany: {},
