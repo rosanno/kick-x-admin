@@ -39,7 +39,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-          <div className="bg-gray-100 rounded-sm h-16 w-16 flex items-center justify-center p-1">
+          <div className="bg-gray-100 rounded-sm h-16 w-16 flex items-center justify-center p-2.5">
             <Image
               src={row.original.image_path}
               alt="Product image"
