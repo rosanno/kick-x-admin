@@ -19,7 +19,7 @@ import {
   Size,
 } from "@prisma/client";
 
-import { formatter } from "@/lib/utils";
+import { cn, formatter } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ProductDataCard } from "./product-data-card";
 import { ProductDescription } from "./product-description";
@@ -119,7 +119,13 @@ export const ProductInformation = ({
                 .map((size) => (
                   <div
                     key={size.id}
-                    className="bg-gray-100/70 w-10 h-10 flex items-center justify-center rounded-xl"
+                    role="button"
+                    className={cn(
+                      "w-10 h-10 flex items-center justify-center rounded-xl cursor-default",
+                      size.quantity > 0
+                        ? "bg-gray-100/75"
+                        : "bg-gray-100/80 opacity-40"
+                    )}
                   >
                     <span className="text-[13px] font-semibold">
                       {size.size}
