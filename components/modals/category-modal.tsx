@@ -21,7 +21,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Spinner } from "../spinner";
+import { Spinner } from "../ui/spinner";
 
 const formSchema = z.object({
   category_name: z
@@ -128,7 +128,7 @@ export const CategoryModal = () => {
                     <Input {...field} disabled={loading} />
                     {loading && (
                       <div className="absolute top-2.5 right-2.5">
-                        <Spinner />
+                        <Spinner size={"default"} />
                       </div>
                     )}
                   </div>
