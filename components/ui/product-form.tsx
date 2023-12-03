@@ -22,6 +22,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -208,8 +209,8 @@ export const ProductForm = ({
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Enter product title"
                             {...field}
+                            placeholder="Enter product name"
                             className="text-[13px]"
                           />
                         </FormControl>
@@ -384,7 +385,9 @@ export const ProductForm = ({
                                     >
                                       <Input
                                         type="number"
-                                        value={item.size}
+                                        value={
+                                          item.size || ""
+                                        }
                                         onChange={(event) =>
                                           field.onChange(
                                             field.value.map(
@@ -416,7 +419,8 @@ export const ProductForm = ({
                                       <Input
                                         type="number"
                                         value={
-                                          item.quantity
+                                          item.quantity ||
+                                          ""
                                         }
                                         onChange={(event) =>
                                           field.onChange(
