@@ -33,6 +33,7 @@ const ProductsPage = async () => {
       brand_name: item.brand?.brand_name,
       createdAt: format(item.createdAt, "d MMMM, yyyy"),
       price: formatter.format(item.price),
+      slug: item.slug,
     })
   );
 

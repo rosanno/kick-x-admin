@@ -10,6 +10,7 @@ export type ProductColumn = {
   id: string;
   name: string;
   image_path: string;
+  slug: string;
   stocks: number;
   category_name: string | undefined;
   brand_name: string | undefined;
