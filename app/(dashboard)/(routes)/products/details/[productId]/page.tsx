@@ -20,6 +20,7 @@ const ProductDetailsPage = async ({
       id: params.productId,
     },
     include: {
+      color: true,
       category: true,
       brand: true,
       images: true,

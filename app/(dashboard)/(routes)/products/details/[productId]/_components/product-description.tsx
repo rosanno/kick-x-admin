@@ -6,9 +6,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { Color } from "@prisma/client";
 import { useState } from "react";
 
 interface ProductDescriptionProps {
+  color: Color | undefined;
   category: string | undefined;
   brand: string | undefined;
   description: string | undefined;
@@ -16,6 +18,7 @@ interface ProductDescriptionProps {
 }
 
 export const ProductDescription = ({
+  color,
   category,
   brand,
   description,
@@ -58,11 +61,13 @@ export const ProductDescription = ({
             </span>
           </div>
         </div>
-        <div className="border border-gray-200/60 p-5 h-[230px]">
+        <div className="border border-gray-200/60 p-4 h-full">
           {activeTab === "specification" && (
             <SpecificationTab
               category={category!!}
               brand={brand!!}
+              colorName={color?.color_name!!}
+              colorValue={color?.color_value!!}
             />
           )}
           {activeTab === "details" && (
@@ -80,9 +85,13 @@ export const ProductDescription = ({
 const SpecificationTab = ({
   category,
   brand,
+  colorName,
+  colorValue,
 }: {
   category: string;
   brand: string;
+  colorName: string;
+  colorValue: string;
 }) => {
   return (
     <Table>
@@ -107,22 +116,16 @@ const SpecificationTab = ({
           <TableHead className="thead text-black">
             Color
           </TableHead>
-          <TableCell className="text-[13px]">Red</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableHead className="thead text-black">
-            Material
-          </TableHead>
-          <TableCell className="text-[13px]">
-            Cotton
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableHead className="thead text-black">
-            Weight
-          </TableHead>
-          <TableCell className="text-[13px]">
-            140 Gram
+          <TableCell className="text-[13px] flex items-center gap-2">
+            <div className="p-1.5 border-2 border-gray-100/70 rounded-full">
+              <div
+                className="border p-2 shadow-lg w-fit rounded-full"
+                style={{
+                  backgroundColor: `${colorValue}`,
+                }}
+              />
+            </div>
+            {colorName}
           </TableCell>
         </TableRow>
       </TableBody>

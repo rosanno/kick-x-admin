@@ -15,6 +15,7 @@ import {
 import {
   Brand,
   Category,
+  Color,
   Product,
   Size,
 } from "@prisma/client";
@@ -29,6 +30,7 @@ import { AlertModal } from "@/components/modals/alert-modal";
 interface ProductInformationProps {
   product:
     | (Product & {
+        color: Color;
         category: Category;
         brand: Brand;
         sizes: Size[];
@@ -147,6 +149,7 @@ export const ProductInformation = ({
             brand={product?.brand?.brand_name}
             description={product?.description}
             name={product?.name}
+            color={product?.color}
           />
           <ProductReviews />
         </div>
