@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import slugify from "slugify";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -80,6 +81,8 @@ export async function PATCH(
     0
   );
 
+  const slug = slugify(name).toLowerCase();
+
   await prisma.product.update({
     where: {
       id: params.productId,
@@ -89,6 +92,7 @@ export async function PATCH(
       description,
       categoryId,
       brandId,
+      slug,
       isFeatured,
       stocks,
       gender,

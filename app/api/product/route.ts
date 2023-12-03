@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import slugify from "slugify";
 
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
@@ -29,6 +30,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const slug = slugify(name).toLowerCase();
+
     const stocks = sizes.reduce(
       (acc: any, current: any) => acc + current.quantity,
       0
@@ -48,6 +51,7 @@ export async function POST(req: NextRequest) {
         categoryId,
         brandId,
         colorId: color.id,
+        slug,
         gender,
         price,
         discount,
