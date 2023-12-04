@@ -46,21 +46,25 @@ const OrdersPage = async () => {
             data={950}
             label="Total Sales"
             icon={Briefcase}
+            color="#000000"
           />
           <DataCard
             data={950}
             label="Sales Projection"
             icon={LineChart}
+            color="#FF76A2"
           />
           <DataCard
             data={120}
             label="Total Orders"
             icon={ShoppingBag}
+            color="#fbcc76"
           />
           <DataCard
             data={27}
             label="Cancelled"
             icon={ShieldOff}
+            color="#1DA91A"
           />
         </article>
       </section>

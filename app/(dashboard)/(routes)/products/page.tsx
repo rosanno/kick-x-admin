@@ -45,11 +45,13 @@ const ProductsPage = async () => {
             label="Live Products"
             icon={LayoutGrid}
             data={products.length}
+            color="#000000"
           />
           <DataCard
             label="Low Stock"
             icon={Folder}
             data={146}
+            color="#FF76A2"
           />
         </div>
       </section>
