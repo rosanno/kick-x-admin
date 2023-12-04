@@ -70,7 +70,7 @@ export const OrderChart = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="px-0 pt-2">
-        <ResponsiveContainer width={"100%"} height={240}>
+        <ResponsiveContainer width={"100%"} height={180}>
           <LineChart
             className="text-[13px]"
             width={300}
