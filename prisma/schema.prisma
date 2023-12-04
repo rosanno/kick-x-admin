@@ -90,9 +90,10 @@ model Product {
 
 model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderId    String
   orderItems OrderItem[]
-  isPaid     Boolean     @default(false)
   user       User[]
+  amount     Int
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }
