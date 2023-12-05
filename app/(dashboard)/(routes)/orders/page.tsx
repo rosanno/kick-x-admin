@@ -15,7 +15,7 @@ import { OrderColumn } from "./_components/column";
 const OrdersPage = async () => {
   const orders = await prisma.order.findMany({
     include: {
-      user: true,
+      customer: true,
       orderItems: true,
     },
   });
@@ -24,10 +24,7 @@ const OrdersPage = async () => {
     (item) => ({
       id: item.id,
       order_id: item.orderId,
-      customer:
-        item?.user[0].firstName +
-        " " +
-        item?.user[0].lastName,
+      customer: item?.customer[0].name,
       amount: item.amount,
       delivery_status: "pickups",
       order_date: format(item.createdAt, "d MMMM, yyyy"),
