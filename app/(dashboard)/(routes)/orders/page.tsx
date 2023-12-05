@@ -24,7 +24,7 @@ const OrdersPage = async () => {
     (item) => ({
       id: item.id,
       order_id: item.orderId,
-      customer: item?.customer[0].name,
+      customer: item.customer.name,
       amount: item.amount,
       delivery_status: "pickups",
       order_date: format(item.createdAt, "d MMMM, yyyy"),
