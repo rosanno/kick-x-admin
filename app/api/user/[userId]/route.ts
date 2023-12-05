@@ -24,8 +24,6 @@ export async function PATCH(
       lastName: z.string().regex(/^[a-zA-Z]+$/), // Must contain only letters,
       email: z.string().email(),
       image_url: z.string().optional().nullable(),
-      phoneNumber: z.string(),
-      address: z.string(),
       current_password: z.string().min(1).optional(),
       password: z
         .string()
@@ -59,8 +57,6 @@ export async function PATCH(
       lastName,
       email,
       image_url,
-      phoneNumber,
-      address,
       current_password,
       password,
       role,
@@ -103,8 +99,6 @@ export async function PATCH(
         lastName,
         email,
         photo_url: image_url,
-        phoneNumber,
-        address,
         password: hash_password,
         role,
       },

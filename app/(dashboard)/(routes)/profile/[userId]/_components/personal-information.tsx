@@ -40,8 +40,6 @@ const formSchema = z.object({
   firstName: z.string().min(2).max(25),
   lastName: z.string().min(2).max(25),
   email: z.string().email().min(1),
-  phoneNumber: z.string().min(10),
-  address: z.string(),
   role: z.enum(["USER", "ADMIN"]),
 });
 
@@ -84,7 +82,7 @@ export const PersonalInformation = ({
       await axios.patch(`/api/user/${userId}`, formValues);
       router.refresh();
       toast({
-        description: "Information updated",
+        description: "Updated",
       });
     } catch (error) {
       toast({
