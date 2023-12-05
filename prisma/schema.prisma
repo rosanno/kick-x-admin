@@ -16,13 +16,13 @@ enum Role {
 }
 
 model User {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  firstName   String
-  lastName    String
-  photo_url   String?
-  email       String  @unique
-  password    String
-  role        Role    @default(USER)
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+  photo_url String?
+  email     String  @unique
+  password  String
+  role      Role    @default(USER)
 }
 
 model Customer {
@@ -34,8 +34,7 @@ model Customer {
   gender      String
   phoneNumber String
   password    String
-  order       Order?  @relation(fields: [orderId], references: [id])
-  orderId     String? @db.ObjectId
+  order       Order[]
 }
 
 enum Gender {
@@ -100,15 +99,16 @@ model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   orderId    String
   orderItems OrderItem[]
-  customer   Customer[]
   amount     Int
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  customerId String      @db.ObjectId
 }
 
 model OrderItem {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  Order     Order   @relation(fields: [orderId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
   orderId   String  @db.ObjectId
   product   Product @relation(fields: [productId], references: [id])
   productId String  @db.ObjectId
