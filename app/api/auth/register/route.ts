@@ -5,23 +5,13 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      firstName,
-      lastName,
-      birthday,
-      address,
-      email,
-      phoneNumber,
-      password,
-    } = (await req.json()) as {
-      firstName: string;
-      lastName: string;
-      birthday: string;
-      address: string;
-      email: string;
-      phoneNumber: string;
-      password: string;
-    };
+    const { firstName, lastName, email, password } =
+      (await req.json()) as {
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+      };
 
     const hash_password = await hash(password, 12);
 
@@ -29,10 +19,7 @@ export async function POST(req: NextRequest) {
       data: {
         firstName,
         lastName,
-        birthday,
-        address,
         email,
-        phoneNumber,
         password: hash_password,
       },
     });

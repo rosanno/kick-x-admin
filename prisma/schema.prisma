@@ -20,13 +20,21 @@ model User {
   firstName   String
   lastName    String
   photo_url   String?
-  birthday    String
-  address     String
   email       String  @unique
-  phoneNumber String
   password    String
   role        Role    @default(USER)
-  Order       Order?  @relation(fields: [orderId], references: [id])
+}
+
+model Customer {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String  @unique
+  birthday    String
+  address     String
+  gender      String
+  phoneNumber String
+  password    String
+  order       Order?  @relation(fields: [orderId], references: [id])
   orderId     String? @db.ObjectId
 }
 
@@ -92,7 +100,7 @@ model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   orderId    String
   orderItems OrderItem[]
-  user       User[]
+  customer   Customer[]
   amount     Int
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
