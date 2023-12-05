@@ -23,8 +23,6 @@ const ProfilePage = async ({
         firstName={profile?.firstName}
         lastName={profile?.lastName}
         email={profile?.email}
-        phone={profile?.phoneNumber}
-        address={profile?.address}
         role={profile?.role}
       />
       <PasswordInformation user={profile} />

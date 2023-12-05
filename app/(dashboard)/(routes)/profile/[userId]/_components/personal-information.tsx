@@ -50,8 +50,6 @@ interface PersonalInformationProps {
   firstName: string | undefined;
   lastName: string | undefined;
   email: string | undefined;
-  phone: string | undefined;
-  address: string | undefined;
   role: any;
 }
 
@@ -60,8 +58,6 @@ export const PersonalInformation = ({
   firstName,
   lastName,
   email,
-  phone,
-  address,
   role,
 }: PersonalInformationProps) => {
   const { toast } = useToast();
@@ -76,8 +72,6 @@ export const PersonalInformation = ({
       firstName,
       lastName,
       email,
-      phoneNumber: phone,
-      address,
       role,
     },
   });
@@ -150,6 +144,7 @@ export const PersonalInformation = ({
                           disabled={!isEdit}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -169,6 +164,7 @@ export const PersonalInformation = ({
                           disabled={!isEdit}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -181,45 +177,6 @@ export const PersonalInformation = ({
                     <FormItem>
                       <FormLabel className="text-[13px]">
                         Email Address
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={!isEdit}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="col-span-3">
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-[13px]">
-                        Phone Number
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={!isEdit}
-                          type="number"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="col-span-3">
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-[13px]">
-                        Address
                       </FormLabel>
                       <FormControl>
                         <Input
