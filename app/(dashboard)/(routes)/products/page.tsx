@@ -17,6 +17,7 @@ const ProductsPage = async () => {
       createdAt: "desc",
     },
     include: {
+      color: true,
       images: true,
       category: true,
       brand: true,
@@ -29,6 +30,7 @@ const ProductsPage = async () => {
       name: item.name,
       image_path: item.images[0].image_path,
       stocks: item.stocks,
+      color: item.color.color_value,
       category_name: item.category?.category_name,
       brand_name: item.brand?.brand_name,
       createdAt: format(item.createdAt, "d MMMM, yyyy"),

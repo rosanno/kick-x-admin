@@ -12,6 +12,7 @@ export type ProductColumn = {
   image_path: string;
   slug: string;
   stocks: number;
+  color: string;
   category_name: string | undefined;
   brand_name: string | undefined;
   price: string;
@@ -56,6 +57,22 @@ export const columns: ColumnDef<ProductColumn>[] = [
               Category: {row.original.category_name}
             </span>
           </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
+    cell: ({ row }) => {
+      return (
+        <div className="p-1 border-2 border-gray-100/70 rounded-full w-max">
+          <div
+            className="border p-1.5 shadow-lg w-fit rounded-full"
+            style={{
+              backgroundColor: `${row.original.color}`,
+            }}
+          />
         </div>
       );
     },
