@@ -36,6 +36,7 @@ export const Client = ({ categories }: ClientProps) => {
         data={categories}
         columns={columns}
         searchKey="category_name"
+        placeholder="Search for category..."
       />
     </>
   );

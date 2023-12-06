@@ -28,6 +28,7 @@ export const Client = ({ orders }: ClientProps) => {
             data={orders}
             columns={columns}
             searchKey="customer"
+            placeholder="Search orders..."
           />
         </CardContent>
       </Card>

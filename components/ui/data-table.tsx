@@ -27,12 +27,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  placeholder: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
+  placeholder,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] =
     React.useState<SortingState>([]);
@@ -58,7 +60,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center py-4 border-b border-dashed pt-5 pb-8 px-5">
         <div className="w-full relative">
           <Input
-            placeholder="Search for category name..."
+            placeholder={placeholder}
             value={
               (table
                 .getColumn(searchKey)

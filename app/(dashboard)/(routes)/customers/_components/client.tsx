@@ -19,6 +19,7 @@ export const Client = ({ customers }: ClientProps) => {
         data={customers}
         columns={columns}
         searchKey="customer"
+        placeholder="Search customers..."
       />
     </>
   );
