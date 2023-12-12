@@ -71,11 +71,11 @@ export const Nav = () => {
                 className="text-[13px]"
                 onClick={() =>
                   router.push(
-                    `/profile/${session?.user?.id}`
+                    `/account/${session?.user?.id}`
                   )
                 }
               >
-                Profile
+                Account
               </DropdownMenuItem>
               <DropdownMenuItem className="text-[13px]">
                 Settings
