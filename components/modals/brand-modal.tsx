@@ -41,8 +41,8 @@ export const BrandModal = () => {
     ? "Updated"
     : "Created";
   const description = brandModal.editId
-    ? "Update product categories"
-    : "Add your product categories";
+    ? "Update product brand"
+    : "Add your product brand";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
