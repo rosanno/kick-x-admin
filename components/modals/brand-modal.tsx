@@ -99,7 +99,7 @@ export const BrandModal = () => {
           values
         );
       } else {
-        await axios.post("/api/categories", values);
+        await axios.post("/api/brands", values);
       }
 
       toast({
