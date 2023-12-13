@@ -36,7 +36,7 @@ export const Client = ({ brands }: ClientProps) => {
         <DataTable
           data={brands}
           columns={columns}
-          searchKey="category_name"
+          searchKey="brand_name"
           placeholder="Search for category..."
         />
       </section>
