@@ -5,6 +5,7 @@ import {
   Box,
   Clipboard,
   CreditCard,
+  FolderEdit,
   LayoutGrid,
   List,
   Settings,
@@ -26,6 +27,11 @@ const menuItems = [
     label: "Products",
     href: "/products",
     icon: Box,
+  },
+  {
+    label: "Brands",
+    href: "/brands",
+    icon: FolderEdit,
   },
   {
     label: "Categories",
@@ -51,6 +57,7 @@ const menuItems = [
     label: "Customers",
     href: "/customers",
     icon: Users2,
+    isSpace: true,
   },
   {
     label: "Settings",
@@ -67,16 +74,14 @@ export const Sidebar = () => {
           Kick X
         </Link>
         <ul className="pt-6">
-          {menuItems.map((item, index) => {
-            const space = index === 6;
-
+          {menuItems.map((item) => {
             return (
               <SidebarItem
                 key={item.label}
                 label={item.label}
                 href={item.href}
                 icon={item.icon}
-                space={space}
+                space={item.isSpace || false}
               />
             );
           })}
