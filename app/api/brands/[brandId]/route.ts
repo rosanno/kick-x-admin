@@ -46,7 +46,7 @@ export async function PATCH(
   try {
     const session = await getServerSession(authOptions);
 
-    const { brand_name } = await req.json();
+    const { brand_name, brand_logo } = await req.json();
 
     if (!session?.user?.id) {
       return new NextResponse("Unauthenticated", {
@@ -66,6 +66,7 @@ export async function PATCH(
       },
       data: {
         brand_name,
+        logo: brand_logo,
       },
     });
 
