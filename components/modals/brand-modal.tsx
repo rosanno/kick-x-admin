@@ -134,7 +134,7 @@ export const BrandModal = () => {
             name="brand_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Brand</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input {...field} disabled={loading} />
