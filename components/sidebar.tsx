@@ -29,14 +29,14 @@ const menuItems = [
     icon: Box,
   },
   {
-    label: "Brands",
-    href: "/brands",
-    icon: FolderEdit,
-  },
-  {
     label: "Categories",
     href: "/categories",
     icon: List,
+  },
+  {
+    label: "Brands",
+    href: "/brands",
+    icon: FolderEdit,
   },
   {
     label: "Inventory",
