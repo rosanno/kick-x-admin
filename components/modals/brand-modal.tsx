@@ -22,12 +22,15 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useToast } from "../ui/use-toast";
+import { UploadButton } from "@/lib/uploadthing";
+import Image from "next/image";
 
 const formSchema = z.object({
   brand_name: z
     .string()
     .min(1, { message: "Field is required." })
     .max(20),
+  brand_logo: z.string().optional(),
 });
 
 export const BrandModal = () => {
@@ -63,6 +66,10 @@ export const BrandModal = () => {
           form.setValue(
             "brand_name",
             response?.data?.brand_name
+          );
+          form.setValue(
+            "brand_logo",
+            response?.data?.brand_logo
           );
         }
       } catch (error) {
@@ -124,11 +131,14 @@ export const BrandModal = () => {
     <Modal
       isOpen={brandModal.isOpen}
       onClose={onClose}
-      title="Category"
+      title="Brand"
       description={description}
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4"
+        >
           <FormField
             control={form.control}
             name="brand_name"
@@ -146,6 +156,47 @@ export const BrandModal = () => {
                   </div>
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="brand_logo"
+            render={({ field }) => (
+              <FormItem className="flex flex-col items-start">
+                <FormLabel className="pb-1.5">
+                  Logo
+                </FormLabel>
+                <FormControl>
+                  {!field.value ? (
+                    <UploadButton
+                      appearance={{
+                        button: "text-[13px] h-8",
+                        container: "rounded-md",
+                        allowedContent: "hidden",
+                      }}
+                      endpoint="imageUploader"
+                      onClientUploadComplete={async (
+                        res
+                      ) => {
+                        field.onChange(res && res[0].url);
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.log(error);
+                      }}
+                    />
+                  ) : (
+                    <div className="h-20 w-20 p-4 bg-gray-100 rounded-md overflow-hidden">
+                      <Image
+                        src={field.value}
+                        alt="logo"
+                        height={200}
+                        width={200}
+                        className="object-cover h-full w-full"
+                      />
+                    </div>
+                  )}
+                </FormControl>
               </FormItem>
             )}
           />
