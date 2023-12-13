@@ -9,6 +9,8 @@ import {
   Trash,
 } from "lucide-react";
 
+import { useBrandModal } from "@/hooks/use-brand-modal";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +21,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { useToast } from "@/components/ui/use-toast";
-import { useCategoryModal } from "@/hooks/use-category-modal";
 import { BrandColumn } from "./column";
 
 interface CellActionProps {
@@ -29,7 +30,7 @@ interface CellActionProps {
 export const CellAction = ({ data }: CellActionProps) => {
   const { toast } = useToast();
   const router = useRouter();
-  const categoryModal = useCategoryModal();
+  const brandModal = useBrandModal();
 
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -74,7 +75,7 @@ export const CellAction = ({ data }: CellActionProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => categoryModal.onEdit(data.id)}
+            onClick={() => brandModal.onEdit(data.id)}
           >
             <Pencil className="mr-2 h-4 w-4" />
             <span className="text-[13px]">Update</span>
