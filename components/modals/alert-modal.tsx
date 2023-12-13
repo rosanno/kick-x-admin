@@ -53,6 +53,7 @@ export const AlertModal = ({
         <AlertDialogFooter>
           <Button
             variant={"outline"}
+            disabled={loading}
             onClick={() => onClose()}
           >
             Cancel
