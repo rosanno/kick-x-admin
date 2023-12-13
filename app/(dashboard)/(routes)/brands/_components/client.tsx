@@ -2,8 +2,8 @@
 
 import { Plus } from "lucide-react";
 
-import { Brand, Category } from "@prisma/client";
-import { useCategoryModal } from "@/hooks/use-category-modal";
+import { Brand } from "@prisma/client";
+import { useBrandModal } from "@/hooks/use-brand-modal";
 
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ interface ClientProps {
 }
 
 export const Client = ({ brands }: ClientProps) => {
-  const categoryModal = useCategoryModal();
+  const brandModal = useBrandModal();
 
   return (
     <>
@@ -24,7 +24,7 @@ export const Client = ({ brands }: ClientProps) => {
         <h1 className="font-medium">Brand List</h1>
         <Button
           className="bg-[#313131] hover:bg-[#444444] transition duration-300"
-          onClick={() => categoryModal.onOpen()}
+          onClick={() => brandModal.onOpen()}
         >
           <Plus className="h-3 w-3 mr-2" />
           <span className="text-[13px] font-normal">
