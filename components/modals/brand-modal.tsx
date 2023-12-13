@@ -111,6 +111,7 @@ export const BrandModal = () => {
         title: "Something went wrong.",
         description:
           "There was a problem with your request.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
