@@ -449,7 +449,7 @@ export const ProductForm = ({
                                           )
                                         }
                                         step="any"
-                                        placeholder="quantity"
+                                        placeholder="Qty"
                                         className="w-full"
                                       />
                                     </div>
