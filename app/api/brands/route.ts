@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    const { brand_name } = await req.json();
+    const { brand_name, logo } = await req.json();
 
     if (!session?.user?.id) {
       return new NextResponse("Unauthenticated", {
@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
     const brand = await prisma.brand.create({
       data: {
         brand_name,
+        logo,
       },
     });
 
