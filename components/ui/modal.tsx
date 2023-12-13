@@ -34,7 +34,7 @@ export const Modal = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-sm">
             {description}
           </DialogDescription>
         </DialogHeader>
