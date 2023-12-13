@@ -7,8 +7,8 @@ import { useBrandModal } from "@/hooks/use-brand-modal";
 
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
-import { CategoryModal } from "@/components/modals/category-modal";
 import { columns } from "./column";
+import { BrandModal } from "@/components/modals/brand-modal";
 
 interface ClientProps {
   brands: Brand[];
@@ -19,7 +19,7 @@ export const Client = ({ brands }: ClientProps) => {
 
   return (
     <>
-      <CategoryModal />
+      <BrandModal />
       <section className="border-b border-dashed flex items-center justify-between p-4">
         <h1 className="font-medium">Brand List</h1>
         <Button
