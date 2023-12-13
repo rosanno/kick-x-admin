@@ -34,7 +34,7 @@ export const Modal = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription className="text-sm">
+          <DialogDescription className="text-[13px]">
             {description}
           </DialogDescription>
         </DialogHeader>
