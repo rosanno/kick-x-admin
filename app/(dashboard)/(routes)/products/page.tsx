@@ -11,6 +11,14 @@ import {
 } from "./_components/column";
 import { formatter } from "@/lib/utils";
 
+export const metadata = {
+  title: "Kick X | Products",
+  openGraph: {
+    title: "Products",
+    description: "Manage shoe products",
+  },
+};
+
 const ProductsPage = async () => {
   const products = await prisma.product.findMany({
     orderBy: {
