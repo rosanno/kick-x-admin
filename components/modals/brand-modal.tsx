@@ -142,6 +142,7 @@ export const BrandModal = () => {
       toast({
         description: "Logo remove successfully",
       });
+      router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
