@@ -67,10 +67,7 @@ export const BrandModal = () => {
             "brand_name",
             response?.data?.brand_name
           );
-          form.setValue(
-            "brand_logo",
-            response?.data?.brand_logo
-          );
+          form.setValue("brand_logo", response?.data?.logo);
         }
       } catch (error) {
         toast({
