@@ -76,26 +76,29 @@ model Size {
 }
 
 model Product {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  slug        String
-  brandId     String      @db.ObjectId
-  brand       Brand       @relation(fields: [brandId], references: [id])
-  categoryId  String      @db.ObjectId
-  category    Category    @relation(fields: [categoryId], references: [id])
-  color       Color       @relation(fields: [colorId], references: [id])
-  gender      Gender      @default(Both)
-  sizes       Size[]
-  images      Image[]
-  stocks      Int
-  price       Float
-  discount    Float?
-  isFeatured  Boolean?    @default(false)
-  orderItems  OrderItem[]
-  colorId     String      @db.ObjectId
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  description   String
+  slug          String
+  brandId       String      @db.ObjectId
+  brand         Brand       @relation(fields: [brandId], references: [id])
+  categoryId    String      @db.ObjectId
+  category      Category    @relation(fields: [categoryId], references: [id])
+  color         Color       @relation(fields: [colorId], references: [id])
+  gender        Gender      @default(Both)
+  sizes         Size[]
+  images        Image[]
+  stocks        Int
+  price         Float
+  discount      Float?
+  isFeatured    Boolean?    @default(false)
+  orderItems    OrderItem[]
+  colorId       String      @db.ObjectId
+  shoe_variants Product?    @relation(name: "ShoeVariants", fields: [shoeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  shoe_relation Product[]   @relation(name: "ShoeVariants")
+  shoeId        String?     @db.ObjectId
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Order {
