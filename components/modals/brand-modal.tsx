@@ -6,8 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 import axios from "axios";
+import Image from "next/image";
+import { Trash } from "lucide-react";
 
 import { useBrandModal } from "@/hooks/use-brand-modal";
+import { UploadButton } from "@/lib/uploadthing";
 
 import { Modal } from "../ui/modal";
 import {
@@ -22,8 +25,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useToast } from "../ui/use-toast";
-import { UploadButton } from "@/lib/uploadthing";
-import Image from "next/image";
 
 const formSchema = z.object({
   brand_name: z
@@ -183,14 +184,26 @@ export const BrandModal = () => {
                       }}
                     />
                   ) : (
-                    <div className="h-20 w-20 p-4 bg-gray-100 rounded-md overflow-hidden">
-                      <Image
-                        src={field.value}
-                        alt="logo"
-                        height={200}
-                        width={200}
-                        className="object-cover h-full w-full"
-                      />
+                    <div className="flex items-end gap-2">
+                      <div className="h-20 w-20 p-4 bg-gray-100 rounded-md">
+                        <Image
+                          src={field.value}
+                          alt="logo"
+                          height={200}
+                          width={200}
+                          className="object-cover h-full w-full"
+                        />
+                      </div>
+                      <Button
+                        variant={"ghost"}
+                        size={"sm"}
+                        disabled={loading}
+                        className="border border-gray-200"
+                        onClick={() => {}}
+                      >
+                        <Trash className="h-4 w-4 mr-1" />
+                        Remove
+                      </Button>
                     </div>
                   )}
                 </FormControl>
