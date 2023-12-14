@@ -66,7 +66,7 @@ export async function PATCH(
       },
       data: {
         brand_name,
-        logo: brand_logo,
+        brand_logo,
       },
     });
 
