@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const brand = await prisma.brand.create({
       data: {
         brand_name,
-        logo: brand_logo,
+        brand_logo,
       },
     });
 
