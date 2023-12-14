@@ -125,6 +125,30 @@ export const BrandModal = () => {
     }
   };
 
+  const removeLogo = async (url: string | undefined) => {
+    try {
+      const logo_url = url?.substring(
+        url.lastIndexOf("/") + 1
+      );
+      await axios.delete("/api/uploadthing", {
+        data: {
+          url: logo_url,
+        },
+      });
+
+      toast({
+        description: "Logo remove",
+      });
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Modal
       isOpen={brandModal.isOpen}
@@ -199,7 +223,9 @@ export const BrandModal = () => {
                         size={"sm"}
                         disabled={loading}
                         className="border border-gray-200"
-                        onClick={() => {}}
+                        onClick={() =>
+                          removeLogo(field.value)
+                        }
                       >
                         <Trash className="h-4 w-4 mr-1" />
                         Remove
