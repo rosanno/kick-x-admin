@@ -6,18 +6,15 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.id) {
-      return new NextResponse("Unauthenticated", {
-        status: 403,
-      });
-    }
-
     const brands = await prisma.brand.findMany();
 
     return NextResponse.json(brands);
-  } catch (error) {}
+  } catch (error) {
+    console.log("[BRAND_GET]", error);
+    return new NextResponse("Internal error", {
+      status: 500,
+    });
+  }
 }
 
 export async function POST(req: NextRequest) {
