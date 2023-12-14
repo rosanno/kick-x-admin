@@ -140,7 +140,7 @@ export const BrandModal = () => {
       });
 
       toast({
-        description: "Logo remove",
+        description: "Logo remove successfully",
       });
     } catch (error) {
       toast({
