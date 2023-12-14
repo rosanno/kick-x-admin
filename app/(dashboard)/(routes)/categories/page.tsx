@@ -2,6 +2,14 @@ import { prisma } from "@/lib/prisma";
 
 import { Client } from "./_components/client";
 
+export const metadata = {
+  title: "Kick X | Categories",
+  openGraph: {
+    title: "Categories",
+    description: "Manage shoe categories",
+  },
+};
+
 const CategoriesPage = async () => {
   const categories = await prisma.category.findMany({
     orderBy: {
