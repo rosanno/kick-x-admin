@@ -48,6 +48,7 @@ import {
   CardTitle,
 } from "./card";
 import useRemoveImage from "@/hooks/use-remove-image";
+import { Separator } from "./separator";
 
 interface ProductFormProps {
   initialData?:
@@ -198,7 +199,11 @@ export const ProductForm = ({
           <div className="grid lg:grid-cols-3 gap-5">
             <div className="space-y-5 col-span-2">
               <Card className="shadow-sm border-none rounded-sm">
-                <CardContent className="py-5 space-y-4">
+                <CardHeader>
+                  <CardTitle>Add Product</CardTitle>
+                </CardHeader>
+                <Separator className="mb-2.5" />
+                <CardContent className="space-y-4">
                   <FormField
                     control={form.control}
                     name="name"
