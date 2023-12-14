@@ -222,6 +222,7 @@ export const BrandModal = () => {
                         />
                       </div>
                       <Button
+                        type="button"
                         variant={"ghost"}
                         size={"sm"}
                         disabled={loading}
