@@ -6,11 +6,20 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
+import { prisma } from "@/lib/prisma";
+
 import { DataCard } from "@/components/ui/data-card";
 import { OrderChart } from "./_components/order-chart";
-import { prisma } from "@/lib/prisma";
 import { Client } from "./_components/client";
 import { OrderColumn } from "./_components/column";
+
+export const metadata = {
+  title: "Kick X | Orders",
+  openGraph: {
+    title: "Orders",
+    description: "Manage shoe orders",
+  },
+};
 
 const OrdersPage = async () => {
   const orders = await prisma.order.findMany({
