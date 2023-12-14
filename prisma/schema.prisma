@@ -94,9 +94,6 @@ model Product {
   isFeatured    Boolean?    @default(false)
   orderItems    OrderItem[]
   colorId       String      @db.ObjectId
-  shoe_variants Product?    @relation(name: "ShoeVariants", fields: [shoeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  shoe_relation Product[]   @relation(name: "ShoeVariants")
-  shoeId        String?     @db.ObjectId
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
