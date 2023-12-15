@@ -213,7 +213,7 @@ export const BrandModal = () => {
                     />
                   ) : (
                     <div className="flex items-end gap-2">
-                      <div className="h-20 w-20 p-4 bg-gray-100 rounded-md">
+                      <div className="h-20 w-auto p-4 bg-gray-100 rounded-md">
                         <Image
                           src={field.value}
                           alt="logo"
