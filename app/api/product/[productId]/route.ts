@@ -10,14 +10,6 @@ export async function GET(
   { params }: { params: { productId: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.id) {
-      return new NextResponse("Unauthenticated", {
-        status: 403,
-      });
-    }
-
     if (!params.productId) {
       return new NextResponse("Product id is required", {
         status: 400,
