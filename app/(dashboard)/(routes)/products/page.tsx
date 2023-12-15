@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { Folder, LayoutGrid } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
+import { formatter } from "@/lib/utils";
 
 import { DataCard } from "@/components/ui/data-card";
 import { DataTable } from "./_components/data-table";
@@ -9,7 +10,6 @@ import {
   ProductColumn,
   columns,
 } from "./_components/column";
-import { formatter } from "@/lib/utils";
 
 export const metadata = {
   title: "Kick X | Products",
