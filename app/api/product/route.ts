@@ -5,6 +5,23 @@ import slugify from "slugify";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
+export async function GET() {
+  try {
+    const products = await prisma.product.findMany({
+      include: {
+        images: true,
+      },
+    });
+
+    return NextResponse.json(products);
+  } catch (error) {
+    console.log("[PRODUCT_GET]", error);
+    return new NextResponse("Internal error", {
+      status: 500,
+    });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
