@@ -12,7 +12,7 @@ const ProductDetailsPage = async ({
   params: { productId: string };
 }) => {
   if (!ObjectId.isValid(params.productId)) {
-    notFound()
+    notFound();
   }
 
   const product = await prisma.product.findUnique({

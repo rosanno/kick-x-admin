@@ -73,7 +73,7 @@ export const CellAction = ({ data }: CellActionProps) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/products/details/${data.id}`)
+              router.push(`/${data.slug}/${data.id}`)
             }
           >
             <Eye className="mr-2 h-4 w-4" />
