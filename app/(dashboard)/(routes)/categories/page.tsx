@@ -1,13 +1,12 @@
+import { Metadata } from "next";
+
 import { prisma } from "@/lib/prisma";
 
 import { Client } from "./_components/client";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kick X | Categories",
-  openGraph: {
-    title: "Categories",
-    description: "Manage shoe categories",
-  },
+  description: "Manage shoe categories",
 };
 
 const CategoriesPage = async () => {
