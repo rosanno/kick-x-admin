@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { Folder, LayoutGrid } from "lucide-react";
 
@@ -11,12 +12,9 @@ import {
   columns,
 } from "./_components/column";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kick X | Products",
-  openGraph: {
-    title: "Products",
-    description: "Manage shoe products",
-  },
+  description: "Manage shoe products",
 };
 
 const ProductsPage = async () => {

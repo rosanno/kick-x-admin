@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import {
   Briefcase,
@@ -13,12 +14,9 @@ import { OrderChart } from "./_components/order-chart";
 import { Client } from "./_components/client";
 import { OrderColumn } from "./_components/column";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kick X | Orders",
-  openGraph: {
-    title: "Orders",
-    description: "Manage shoe orders",
-  },
+  description: "Manage shoe orders",
 };
 
 const OrdersPage = async () => {
