@@ -16,7 +16,22 @@ export type CustomerColumn = {
 export const columns: ColumnDef<CustomerColumn>[] = [
   {
     accessorKey: "customer",
-    header: "Customer",
+    header: ({ column }) => {
+      return (
+        <div
+          role="button"
+          className="flex items-center w-fit"
+          onClick={() =>
+            column.toggleSorting(
+              column.getIsSorted() === "asc"
+            )
+          }
+        >
+          <ArrowUpDown className="mr-2 h-4 w-4" />
+          Customer
+        </div>
+      );
+    },
     cell: ({ row }) => {
       return (
         <div className="text-[13px]">
