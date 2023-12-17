@@ -1,8 +1,15 @@
+import { format } from "date-fns";
+import { Metadata } from "next";
+
 import { prisma } from "@/lib/prisma";
 
 import { Client } from "./_components/client";
 import { CustomerColumn } from "./_components/column";
-import { format } from "date-fns";
+
+export const metadata: Metadata = {
+  title: "Kick X | Customers",
+  description: "Manage customers",
+};
 
 const CustomersPage = async () => {
   const customers = await prisma.customer.findMany({
