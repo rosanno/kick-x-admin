@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { compare } from "bcrypt";
 
 import { prisma } from "@/lib/prisma";
 
@@ -9,7 +10,6 @@ export async function POST(req: NextRequest) {
     const customer = await prisma.customer.findUnique({
       where: {
         email,
-        password,
       },
     });
 
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (!customer?.password) {
+    if (!(await compare(password, customer.password))) {
       return NextResponse.json({
         message: "Wrong password",
       });
