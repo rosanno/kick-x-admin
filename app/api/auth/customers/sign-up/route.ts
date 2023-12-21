@@ -6,42 +6,46 @@ import { prisma } from "@/lib/prisma";
 export async function POST(req: NextRequest) {
   try {
     const {
-      firstName,
-      lastName,
-      photo_url,
+      name,
       email,
+      birthday,
+      address,
+      gender,
+      phoneNumber,
       password,
-    } = (await req.json()) as {
-      firstName: string;
-      lastName: string;
-      photo_url: string;
-      email: string;
-      password: string;
-    };
+    } = await req.json();
+
+    const checkUser = await prisma.customer.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (checkUser)
+      return Response.json(
+        { message: "Email already registered" },
+        { status: 409 }
+      );
 
     const hash_password = await hash(password, 12);
 
-    const user = await prisma.user.create({
+    const customer = await prisma.customer.create({
       data: {
-        firstName,
-        lastName,
-        photo_url,
+        name,
         email,
+        birthday,
+        address,
+        gender,
+        phoneNumber,
         password: hash_password,
       },
     });
 
-    return NextResponse.json({
-      user: {
-        name: user.firstName + " " + user.lastName,
-        email: user.email,
-      },
+    return NextResponse.json(customer);
+  } catch (error) {
+    console.log("[CUSTOMERS_POST]", error);
+    return new NextResponse("Internal error", {
+      status: 500,
     });
-  } catch (error: any) {
-    return new NextResponse(
-      JSON.stringify({
-        message: error.message,
-      })
-    );
   }
 }
