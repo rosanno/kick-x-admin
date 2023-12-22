@@ -29,11 +29,12 @@ model Customer {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   email       String   @unique
-  birthday    String
-  address     String
-  gender      String
-  phoneNumber String
-  password    String
+  picture     String?
+  birthday    String?
+  address     String?
+  gender      String?
+  phoneNumber String?
+  password    String?
   order       Order[]
   Review      Review[]
   createdAt   DateTime @default(now())
