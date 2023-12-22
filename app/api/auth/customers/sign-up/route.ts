@@ -10,15 +10,14 @@ export async function POST(req: NextRequest) {
       email,
       birthday,
       address,
+      picture,
       gender,
       phoneNumber,
       password,
     } = await req.json();
 
     const checkUser = await prisma.customer.findUnique({
-      where: {
-        email: email,
-      },
+      where: { email },
     });
 
     if (checkUser)
@@ -27,7 +26,8 @@ export async function POST(req: NextRequest) {
         { status: 409 }
       );
 
-    const hash_password = await hash(password, 12);
+    const hash_password =
+      password && (await hash(password, 12));
 
     const customer = await prisma.customer.create({
       data: {
@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
         email,
         birthday,
         address,
+        picture,
         gender,
         phoneNumber,
         password: hash_password,
