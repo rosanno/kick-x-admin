@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { format } from "date-fns";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -12,6 +13,7 @@ import {
   Pencil,
   Trash,
 } from "lucide-react";
+
 import {
   Brand,
   Category,
@@ -19,8 +21,8 @@ import {
   Product,
   Size,
 } from "@prisma/client";
-
 import { cn, formatter } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { ProductDataCard } from "./product-data-card";
 import { ProductDescription } from "./product-description";
@@ -51,7 +53,22 @@ export const ProductInformation = ({
     formatter.format(product?.price);
   const formmatedRevenue = formatter.format(60645);
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {
+    try {
+      setLoading(true)
+      const response = await axios.delete(
+        `/api/product/${product?.id}`
+      );
+
+      console.log(response)
+
+      router.push("/products");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false)
+    }
+  };
 
   return (
     <>
