@@ -30,7 +30,7 @@ const ProductDetailsPage = async ({
 
   return (
     <div className="bg-white shadow-sm rounded-md p-4">
-      <section className="grid grid-cols-5 gap-8">
+      <section className="grid xl:grid-cols-5 gap-8">
         <ProductImage product={product} />
         <ProductInformation product={product} />
       </section>
