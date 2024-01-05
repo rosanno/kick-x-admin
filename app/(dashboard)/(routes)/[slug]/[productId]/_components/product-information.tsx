@@ -55,18 +55,17 @@ export const ProductInformation = ({
 
   const onConfirm = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.delete(
         `/api/product/${product?.id}`
       );
 
-      console.log(response)
-
+      router.refresh();
       router.push("/products");
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
