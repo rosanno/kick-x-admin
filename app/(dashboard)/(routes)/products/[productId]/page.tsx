@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { notFound } from "next/navigation";
 
-import { ProductForm } from "@/components/ui/product-form";
+import { ProductForm } from "@/components/product-form";
 import { prisma } from "@/lib/prisma";
 
 const ProductPage = async ({

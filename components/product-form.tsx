@@ -8,8 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Plus } from "lucide-react";
 
-import { useToast } from "./use-toast";
-
 import {
   Brand,
   Category,
@@ -18,18 +16,19 @@ import {
   Product,
   Size,
 } from "@prisma/client";
+import useRemoveImage from "@/hooks/use-remove-image";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "./form";
-import { Input } from "./input";
-import { Textarea } from "./textarea";
+} from "./ui/form";
+import { useToast } from "./ui/use-toast";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 import {
   Select,
   SelectContent,
@@ -37,18 +36,17 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./select";
-import { Button } from "./button";
-import { Checkbox } from "./checkbox";
-import { ImageUpload } from "../image-upload";
+} from "./ui/select";
+import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
+import { ImageUpload } from "./image-upload";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "./card";
-import useRemoveImage from "@/hooks/use-remove-image";
-import { Separator } from "./separator";
+} from "./ui/card";
+import { Separator } from "./ui/separator";
 
 interface ProductFormProps {
   initialData?:
