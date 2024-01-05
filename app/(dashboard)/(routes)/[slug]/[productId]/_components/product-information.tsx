@@ -19,6 +19,7 @@ import {
   ProductDataCard,
   ProductDescription,
   ProductReviews,
+  useToast,
   FaStar,
   Boxes,
   ClipboardSignature,
@@ -45,6 +46,7 @@ export const ProductInformation = ({
   product,
 }: ProductInformationProps) => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,7 +63,16 @@ export const ProductInformation = ({
 
       router.refresh();
       router.push("/products");
+      toast({
+        description: "Product deleted",
+      });
     } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong.",
+        description:
+          "There was a problem with your request.",
+      });
       console.log(error);
     } finally {
       setLoading(false);

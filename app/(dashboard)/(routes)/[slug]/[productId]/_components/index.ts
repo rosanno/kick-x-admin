@@ -1,3 +1,4 @@
+import { useToast } from "@/components/ui/use-toast";
 import { FaStar } from "react-icons/fa";
 import {
   Boxes,
@@ -22,6 +23,7 @@ export {
   ProductDescription,
   ProductReviews,
   AlertModal,
+  useToast,
   FaStar,
   Boxes,
   ClipboardSignature,
