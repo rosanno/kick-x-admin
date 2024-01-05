@@ -4,15 +4,6 @@ import axios from "axios";
 import { format } from "date-fns";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaStar } from "react-icons/fa";
-import {
-  Boxes,
-  ClipboardSignature,
-  Coins,
-  ListChecks,
-  Pencil,
-  Trash,
-} from "lucide-react";
 
 import {
   Brand,
@@ -21,13 +12,23 @@ import {
   Product,
   Size,
 } from "@prisma/client";
-import { cn, formatter } from "@/lib/utils";
 
-import { Button } from "@/components/ui/button";
-import { ProductDataCard } from "./product-data-card";
-import { ProductDescription } from "./product-description";
-import { ProductReviews } from "./product-reviews";
-import { AlertModal } from "@/components/modals/alert-modal";
+import {
+  AlertModal,
+  Button,
+  ProductDataCard,
+  ProductDescription,
+  ProductReviews,
+  FaStar,
+  Boxes,
+  ClipboardSignature,
+  Coins,
+  ListChecks,
+  Pencil,
+  Trash,
+  cn,
+  formatter,
+} from ".";
 
 interface ProductInformationProps {
   product:
@@ -56,9 +57,7 @@ export const ProductInformation = ({
   const onConfirm = async () => {
     try {
       setLoading(true);
-      const response = await axios.delete(
-        `/api/product/${product?.id}`
-      );
+      await axios.delete(`/api/product/${product?.id}`);
 
       router.refresh();
       router.push("/products");
